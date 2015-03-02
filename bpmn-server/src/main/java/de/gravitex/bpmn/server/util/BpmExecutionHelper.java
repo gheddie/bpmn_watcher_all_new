@@ -15,12 +15,13 @@ public class BpmExecutionHelper {
 	 * Business Key der aufrufenden Prozess-Instanz.
 	 * 
 	 * @param execution
+	 * @param messageIdentifier 
 	 */
-	public static void correlateWithParentBusinessKey(DelegateExecution execution) {
+	public static void correlateWithParentBusinessKey(DelegateExecution execution, String messageIdentifier) {
 		String parentBusinessKey = execution.getProcessBusinessKey();
 		HashMap<String, Object> variables = new HashMap<String, Object>();
 		variables.put(PARENT_BUSINESS_KEY, parentBusinessKey);
-		BpmEngine.getInstance().runtime().correlateMessage(BpmMessages.TestCollaborationMessages.MESSAGE_SEND, "", variables);
+		BpmEngine.getInstance().runtime().correlateMessage(messageIdentifier, "", variables);
 	}
 	
 	/**
