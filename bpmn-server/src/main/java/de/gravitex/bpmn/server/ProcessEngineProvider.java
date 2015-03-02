@@ -32,6 +32,7 @@ import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.dto.VariableState;
 import de.gravitex.bpmn.server.exception.BpmnException;
+import de.gravitex.bpmn.server.singleton.BpmEngine;
 import de.gravitex.bpmn.server.util.DelegateHelper;
 
 public class ProcessEngineProvider extends UnicastRemoteObject implements ProcessEngineProviderRemote {
@@ -40,9 +41,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 
 	private static final String DEPLOYMENT_UPLOAD_ROOT = "/var/tmp/process_upload/";
 	
-//	private static final String DEPLOYMENT_UPLOAD_ROOT = "C:\\process_def_upload\\";
-	
-	private ProcessEngine processEngine;
+//	private ProcessEngine processEngine;
 	
 	public ProcessEngineProvider() throws RemoteException {
 		super();
@@ -50,16 +49,16 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	}
 
 	private void init() {
-		
 		initProcessEngine();
-		
 		//---
-		
-		deploy("SimpleProcess", true);
+//		deploy("SimpleProcess", true);
+		deploy("TestCollaboration", true);
+//		deploy("CollaborationSend", true);
+//		deploy("CollaborationReturn", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {
-		DeploymentBuilder deployment = processEngine.getRepositoryService().createDeployment().addClasspathResource(processKey+".bpmn");
+		DeploymentBuilder deployment = BpmEngine.getInstance().getProcessEngine().getRepositoryService().createDeployment().addClasspathResource(processKey+".bpmn");
 		if (addDiagram) {
 			deployment.addClasspathResource(processKey+".png");
 		}
@@ -69,7 +68,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	private void initProcessEngine() {
 		
 		//H2
-		processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
+		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
 				.setJdbcUrl("jdbc:h2:mem:my-own-db;DB_CLOSE_DELAY=1000").setJdbcDriver("org.h2.Driver").setJdbcUsername("sa").setJdbcPassword("").setJobExecutorActivate(true)
 				.setDatabaseSchemaUpdate("true").buildProcessEngine();
 		
@@ -81,14 +80,16 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 		//MS_SQL
 //		processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
 //				.setJdbcUrl("jdbc:jtds:sqlserver://bcc-sql08-demo:1433/coredb_processing").setJdbcDriver("net.sourceforge.jtds.jdbc.Driver").setJdbcUsername("coredb").setJdbcPassword("coredb").setJobExecutorActivate(true)
-//				.setDatabaseSchemaUpdate("true").buildProcessEngine();		
+//				.setDatabaseSchemaUpdate("true").buildProcessEngine();	
+		
+		BpmEngine.getInstance().setProcessEngine(processEngine);
 	}
 	
 	//---
 	
 	public void deployStream(String resourceName, String processKey, String version) throws RemoteException {
 		try {
-			DeploymentBuilder deployment = processEngine.getRepositoryService().createDeployment();
+			DeploymentBuilder deployment = BpmEngine.getInstance().getProcessEngine().getRepositoryService().createDeployment();
 			
 			String uniqueResourceName = resourceName + System.currentTimeMillis();
 			
@@ -108,15 +109,15 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	}
 
 	public List<Task> queryTasks(String processInstanceId) throws RemoteException {
-		return processEngine.getTaskService().createTaskQuery().processInstanceId(processInstanceId).list();
+		return BpmEngine.getInstance().getProcessEngine().getTaskService().createTaskQuery().processInstanceId(processInstanceId).list();
 	}
 	
 	public List<JobExecutionDTO> queryJobs(String processInstanceId) throws RemoteException {
 		List<JobExecutionDTO> jobDTOs = new ArrayList<>();
-		List<Job> queriedJobs = processEngine.getManagementService().createJobQuery().processInstanceId(processInstanceId).list();
+		List<Job> queriedJobs = BpmEngine.getInstance().getProcessEngine().getManagementService().createJobQuery().processInstanceId(processInstanceId).list();
 		JobDefinition def = null;
 		for (Job job : queriedJobs) {
-			def = processEngine.getManagementService().createJobDefinitionQuery().jobDefinitionId(job.getJobDefinitionId()).singleResult();
+			def = BpmEngine.getInstance().getProcessEngine().getManagementService().createJobDefinitionQuery().jobDefinitionId(job.getJobDefinitionId()).singleResult();
 			System.out.println("act : " + def.getActivityId());
 			jobDTOs.add(new JobExecutionDTO(def.getActivityId(), job.getDuedate()));
 		}
@@ -124,41 +125,41 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	}
 
 	public DiagramLayout getDiagramLayout(String processDefinitionId) throws RemoteException {
-		return processEngine.getRepositoryService().getProcessDiagramLayout(processDefinitionId);
+		return BpmEngine.getInstance().getProcessEngine().getRepositoryService().getProcessDiagramLayout(processDefinitionId);
 	}
 
 	public List<ProcessDefinition> queryDefinitions() throws RemoteException {
-		return processEngine.getRepositoryService().createProcessDefinitionQuery().list();
+		return BpmEngine.getInstance().getProcessEngine().getRepositoryService().createProcessDefinitionQuery().list();
 	}
 
 	public void completeTask(String taskId, Map<String, Object> variables) throws RemoteException, BpmnException {
 		try {
-			processEngine.getTaskService().complete(taskId, variables);	
+			BpmEngine.getInstance().getProcessEngine().getTaskService().complete(taskId, variables);	
 		} catch (ProcessEngineException e) {
 			throw new BpmnException(e);
 		}
 	}
 
 	public void correlateMessage(String messageName, String businessKey, Map<String, Object> variables) throws RemoteException {
-		processEngine.getRuntimeService().correlateMessage(messageName, businessKey, variables);
+		BpmEngine.getInstance().getProcessEngine().getRuntimeService().correlateMessage(messageName, businessKey, variables);
 	}
 
 	public List<ProcessInstance> queryInstances() throws RemoteException {
-		return processEngine.getRuntimeService().createProcessInstanceQuery().list();
+		return BpmEngine.getInstance().getProcessEngine().getRuntimeService().createProcessInstanceQuery().list();
 	}
 	
 	public void startProcessInstanceByMessage(String messageName) throws RemoteException {
-		processEngine.getRuntimeService().startProcessInstanceByMessage(messageName, DelegateHelper.generateBusinessKey());
+		BpmEngine.getInstance().getProcessEngine().getRuntimeService().startProcessInstanceByMessage(messageName, DelegateHelper.generateBusinessKey());
 	}
 
 	public void startProcessInstanceByKey(String processDefinitionKey, Map<String, Object> variables) throws RemoteException {
-		processEngine.getRuntimeService().startProcessInstanceByKey(processDefinitionKey, DelegateHelper.generateBusinessKey(), variables);
+		BpmEngine.getInstance().getProcessEngine().getRuntimeService().startProcessInstanceByKey(processDefinitionKey, DelegateHelper.generateBusinessKey(), variables);
 	}
 
 	public ImageIcon getProcessDiagram(String processDefinitionId) throws RemoteException {
 		InputStream stream = null;
 		try {
-			stream = processEngine.getRepositoryService().getProcessDiagram(processDefinitionId);
+			stream = BpmEngine.getInstance().getProcessEngine().getRepositoryService().getProcessDiagram(processDefinitionId);
 			BufferedImage bufferedImage = ImageIO.read(new BufferedInputStream(stream));
 			if (bufferedImage == null) {
 				return null;
@@ -171,7 +172,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	}
 
 	public List<VariableInstanceDTO> queryVariables(String processInstanceId) throws RemoteException {
-		List<VariableInstance> variableInstances = processEngine.getRuntimeService().createVariableInstanceQuery().processInstanceIdIn(processInstanceId).list();
+		List<VariableInstance> variableInstances = BpmEngine.getInstance().getProcessEngine().getRuntimeService().createVariableInstanceQuery().processInstanceIdIn(processInstanceId).list();
 		List<VariableInstanceDTO> variableDTOs = new ArrayList<>();
 		for (VariableInstance variableInstance : variableInstances) {
 			variableDTOs.add(new VariableInstanceDTO(variableInstance.getName(), variableInstance.getValue(), VariableState.DEPLOYED));
@@ -181,7 +182,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 
 	public List<String> queryActivities(String processInstanceId) throws RemoteException {
 		try {
-			return processEngine.getRuntimeService().getActiveActivityIds(processInstanceId);	
+			return BpmEngine.getInstance().getProcessEngine().getRuntimeService().getActiveActivityIds(processInstanceId);	
 		} catch (ProcessEngineException e) {
 			System.out.println("error on getting active activity ids : " + e.getMessage());
 			return null;
