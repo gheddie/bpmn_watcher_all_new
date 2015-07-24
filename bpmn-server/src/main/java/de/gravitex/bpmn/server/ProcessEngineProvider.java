@@ -52,9 +52,10 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 		initProcessEngine();
 		//---
 //		deploy("SimpleProcess", true);
-		deploy("TestCollaboration", true);
+//		deploy("TestCollaboration", true);
 //		deploy("CollaborationSend", true);
 //		deploy("CollaborationReturn", true);
+		deploy("diagram", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {

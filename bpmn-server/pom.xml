@@ -9,6 +9,7 @@
 		<groupId>de.gravitex.bpmn</groupId>
 		<artifactId>bpmn-build</artifactId>
 		<version>1.0-SNAPSHOT</version>
+		<relativePath>../bpmn-build</relativePath>
 	</parent>
 
 	<name>bpmn-server</name>
