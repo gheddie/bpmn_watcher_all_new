@@ -55,7 +55,9 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("TestCollaboration", true);
 //		deploy("CollaborationSend", true);
 //		deploy("CollaborationReturn", true);
-		deploy("diagram", true);
+//		deploy("diagram", true);
+//		deploy("Revoke", true);
+		deploy("SimpleDecision", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {
