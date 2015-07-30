@@ -68,7 +68,7 @@ public class VariablesDialog extends JDialog {
 
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	private void fillTypes() {		
-		Object[] items = new Object[] {VariablesType.BOOLEAN, VariablesType.STRING, VariablesType.DATE};
+		Object[] items = new Object[] {VariablesType.BOOLEAN, VariablesType.STRING, VariablesType.DATE, VariablesType.NUMERIC};
 		DefaultComboBoxModel model = new DefaultComboBoxModel(items);				
 		cbVariableType.setModel(model);
 	}

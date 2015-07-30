@@ -11,6 +11,7 @@ public class VariableParser {
             parsers.put(VariablesType.BOOLEAN, new BooleanValueParser());
             parsers.put(VariablesType.STRING, new StringValueParser());
             parsers.put(VariablesType.DATE, new DateValueParser());
+            parsers.put(VariablesType.NUMERIC, new NumericValueParser());
     }
 
 	public static Object parseValue(VariablesType type, String textValue) throws VariableParsingException {
