@@ -5,8 +5,22 @@ import org.camunda.bpm.engine.delegate.JavaDelegate;
 
 public class ValidateAuthDelegate implements JavaDelegate
 {
-	public void execute(DelegateExecution arg0) throws Exception
+	public void execute(DelegateExecution execution) throws Exception
 	{
-		System.out.println("validating auth...");
+		String pincode = (String) execution.getVariable("pincode");
+		System.out.println("validating auth : " + pincode);
+		if (pincode == null)
+		{
+			pincode = "2345";
+		}
+		if (pincode.equals("1234"))
+		{
+			execution.setVariable("gnChecked", true);
+			System.out.println("pincode "+pincode+" was ok...");
+		} else
+		{
+			execution.setVariable("gnChecked", false);
+			System.out.println("pincode "+pincode+" was NOT ok...");
+		}
 	}
 }
