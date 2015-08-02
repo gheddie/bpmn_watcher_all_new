@@ -10,7 +10,11 @@ public class RefNoCollabVariables
 
 	public static final String VAR_ERROR_CODE = "errorCode";
 	
+	public static final String VAR_CHOSEN_PUMP_NO = "chosePumpNo";
+	
 	public static final int ERROR_CODE_EXC_ATT = 111;
 	
 	public static final int ERROR_CODE_EXC_TIME = 222;
+
+	public static final int ERROR_CODE_NONE = 333;
 }
