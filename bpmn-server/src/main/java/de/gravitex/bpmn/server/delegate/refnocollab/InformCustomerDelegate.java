@@ -10,7 +10,7 @@ public class InformCustomerDelegate implements JavaDelegate
 		final Integer errorCode = (Integer) execution.getVariable(RefNoCollabVariables.VAR_ERROR_CODE);
 		if (errorCode.equals(RefNoCollabVariables.ERROR_CODE_NONE))
 		{
-			// TODO no error
+			System.out.println("amount of '"+execution.getVariable(RefNoCollabVariables.VAR_AMOUNT_TO_DEBIT)+"' will be charged.");
 		} else
 		{
 			String reason = "";

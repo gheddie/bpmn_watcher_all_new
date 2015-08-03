@@ -10,7 +10,9 @@ public class RefNoCollabVariables
 
 	public static final String VAR_ERROR_CODE = "errorCode";
 	
-	public static final String VAR_CHOSEN_PUMP_NO = "chosePumpNo";
+	public static final String VAR_CHOSEN_PUMP_NO = "chosenPumpNo";
+	
+	public static final String VAR_AMOUNT_TO_DEBIT = "amountToDebit";
 	
 	public static final int ERROR_CODE_EXC_ATT = 111;
 	
