@@ -58,8 +58,10 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("diagram", true);
 //		deploy("Revoke", true);
 //		deploy("SimpleDecision", true);
-		deploy("RefuelNoCollaboration", true);
+//		deploy("RefuelNoCollaboration", true);
 //		deploy("CashMachine", true);
+//		deploy("ComplexGatewayTest", true);
+		deploy("SignalTest", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {
@@ -78,7 +80,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 				.setDatabaseSchemaUpdate("true").buildProcessEngine();
 		
 		//POSTGRES
-//		processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
+//		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
 //				.setJdbcUrl("jdbc:postgresql://localhost/bpmn_watcher").setJdbcDriver("org.postgresql.Driver").setJdbcUsername("postgres").setJdbcPassword("pgvedder").setJobExecutorActivate(true)
 //				.setDatabaseSchemaUpdate("true").buildProcessEngine();	
 		
