@@ -62,6 +62,9 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("CashMachine", true);
 //		deploy("ComplexGatewayTest", true);
 		deploy("SignalTest", true);
+		deploy("SynchronisationTest", true);
+//		deploy("ExportRequestTriggerProcess", true);
+//		deploy("ExportRequestEvaluationProcess", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {
