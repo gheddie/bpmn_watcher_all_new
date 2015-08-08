@@ -4,6 +4,6 @@ public class TestExportRequestDbMethods
 {
 	public static void main(String[] args)
 	{
-		ExportRequestDbConnector.queryUnprocessedExportRequests();
+		ExportRequestHelper.queryUnprocessedExportRequests();
 	}
 }
