@@ -20,6 +20,7 @@
 		<property name="connection.pool_size">1</property>
 		<property name="current_session_context_class">thread</property>
 
-		<mapping class="de.gravitex.bpmn.server.test.ExportRequest" />
+		<mapping class="de.gravitex.bpmn.server.persistence.entity.ExportRequest" />
+		<mapping class="de.gravitex.bpmn.server.persistence.entity.Refueling" />
 	</session-factory>
 </hibernate-configuration>

@@ -6,8 +6,9 @@ import org.hibernate.Query;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import de.gravitex.bpmn.server.test.ExportRequest;
-import de.gravitex.bpmn.server.test.HibernateUtil;
+import de.gravitex.bpmn.server.per.HibernateUtil;
+import de.gravitex.bpmn.server.persistence.entity.ExportRequest;
+import de.gravitex.bpmn.server.persistence.entity.ExportRequestStatus;
 
 public class ExportRequestHelper
 {
@@ -15,7 +16,7 @@ public class ExportRequestHelper
 	public static List<ExportRequest> queryUnprocessedExportRequests()
 	{
 		Session session = HibernateUtil.getSessionFactory().openSession();
-		Query q = session.createQuery("From ExportRequest exr where exr.requestStatus = '"+ExportRequestStatus.UNPROCESSED+"'");
+		Query q = session.createQuery("From "+ExportRequest.class.getSimpleName()+" exr where exr.requestStatus = '"+ExportRequestStatus.UNPROCESSED+"'");
 		List<ExportRequest> list = q.list();
 		session.close();
 		return list;

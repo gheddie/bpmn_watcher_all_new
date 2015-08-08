@@ -1,4 +1,4 @@
-package de.gravitex.bpmn.server.test;
+package de.gravitex.bpmn.server.per;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;

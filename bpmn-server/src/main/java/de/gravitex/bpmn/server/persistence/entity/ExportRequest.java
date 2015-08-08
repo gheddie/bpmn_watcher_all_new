@@ -1,12 +1,10 @@
-package de.gravitex.bpmn.server.test;
+package de.gravitex.bpmn.server.persistence.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
-import de.gravitex.bpmn.server.processhelper.exportrequest.ExportRequestStatus;
 
 @Entity
 public class ExportRequest

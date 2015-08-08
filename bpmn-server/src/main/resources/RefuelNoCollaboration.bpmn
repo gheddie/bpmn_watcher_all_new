@@ -81,6 +81,9 @@
     </bpmn2:boundaryEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_22" name="" sourceRef="BoundaryEvent_2" targetRef="ServiceTask_7"/>
     <bpmn2:startEvent id="StartEvent_1" name="MSG_FUEL_LOW">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="de.gravitex.bpmn.server.delegate.refnocollab.StartRefuelingProcessDelegate" event="start"/>
+      </bpmn2:extensionElements>
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
       <bpmn2:messageEventDefinition id="_MessageEventDefinition_13" messageRef="Message_1"/>
     </bpmn2:startEvent>
@@ -215,6 +218,14 @@
       <bpmn2:text>StopRefuelingDelegate</bpmn2:text>
     </bpmn2:textAnnotation>
     <bpmn2:association id="Association_8" sourceRef="TextAnnotation_7" targetRef="UserTask_5"/>
+    <bpmn2:textAnnotation id="TextAnnotation_8">
+      <bpmn2:text>StartRefuelingProcessDelegate</bpmn2:text>
+    </bpmn2:textAnnotation>
+    <bpmn2:association id="Association_9" sourceRef="TextAnnotation_8" targetRef="StartEvent_1"/>
+    <bpmn2:textAnnotation id="TextAnnotation_9">
+      <bpmn2:text>ReservePumpDelegate</bpmn2:text>
+    </bpmn2:textAnnotation>
+    <bpmn2:association id="Association_10" sourceRef="TextAnnotation_9" targetRef="ServiceTask_3"/>
   </bpmn2:process>
   <bpmn2:message id="Message_1" name="MSG_FUEL_LOW"/>
   <bpmn2:error id="Error_1" errorCode="ERR_PIN_INVALID"/>
@@ -629,6 +640,20 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="1803.0" y="129.0"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_TextAnnotation_15" bpmnElement="TextAnnotation_8">
+        <dc:Bounds height="50.0" width="304.0" x="129.0" y="60.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_Association_9" bpmnElement="Association_9" sourceElement="_BPMNShape_TextAnnotation_15" targetElement="_BPMNShape_StartEvent_9">
+        <di:waypoint xsi:type="dc:Point" x="249.0" y="110.0"/>
+        <di:waypoint xsi:type="dc:Point" x="144.0" y="191.0"/>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_TextAnnotation_16" bpmnElement="TextAnnotation_9">
+        <dc:Bounds height="50.0" width="230.0" x="1247.0" y="473.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_Association_10" bpmnElement="Association_10" sourceElement="_BPMNShape_TextAnnotation_16" targetElement="_BPMNShape_ServiceTask_13">
+        <di:waypoint xsi:type="dc:Point" x="1247.0" y="474.0"/>
+        <di:waypoint xsi:type="dc:Point" x="1171.0" y="458.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

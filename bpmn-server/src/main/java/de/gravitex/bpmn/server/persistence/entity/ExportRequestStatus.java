@@ -1,4 +1,4 @@
-package de.gravitex.bpmn.server.processhelper.exportrequest;
+package de.gravitex.bpmn.server.persistence.entity;
 
 public enum ExportRequestStatus
 {

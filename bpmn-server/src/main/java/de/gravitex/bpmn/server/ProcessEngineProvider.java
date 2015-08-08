@@ -19,6 +19,7 @@ import javax.swing.ImageIcon;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.ProcessEngineException;
+import org.camunda.bpm.engine.impl.javax.el.PropertyNotFoundException;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
 import org.camunda.bpm.engine.repository.DiagramLayout;
@@ -32,6 +33,7 @@ import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.dto.VariableState;
 import de.gravitex.bpmn.server.exception.BpmnException;
+import de.gravitex.bpmn.server.exception.BpmnPropertyException;
 import de.gravitex.bpmn.server.singleton.BpmEngine;
 import de.gravitex.bpmn.server.util.DelegateHelper;
 
@@ -58,14 +60,14 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("diagram", true);
 //		deploy("Revoke", true);
 //		deploy("SimpleDecision", true);
-//		deploy("RefuelNoCollaboration", true);
+		deploy("RefuelNoCollaboration", true);
 //		deploy("CashMachine", true);
 //		deploy("ComplexGatewayTest", true);
 //		deploy("SignalTest", true);
 //		deploy("SynchronisationTest", true);
 //		deploy("ExportRequestTriggerProcess", true);
 //		deploy("ExportRequestEvaluationProcess", true);
-		deploy("CompensationTest", true);
+//		deploy("CompensationTest", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {
@@ -145,8 +147,15 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 
 	public void completeTask(String taskId, Map<String, Object> variables) throws RemoteException, BpmnException {
 		try {
-			BpmEngine.getInstance().getProcessEngine().getTaskService().complete(taskId, variables);	
+			BpmEngine.getInstance().getProcessEngine().getTaskService().complete(taskId, variables);
 		} catch (ProcessEngineException e) {
+			if ((e.getCause() != null) && (e.getCause() instanceof PropertyNotFoundException))
+			{
+				PropertyNotFoundException pnf = (PropertyNotFoundException) e.getCause();
+				String propertyName = pnf.getMessage().substring(pnf.getMessage().indexOf("'")+1, pnf.getMessage().lastIndexOf("'"));
+				System.out.println(" @@@ ::: " + propertyName);
+				throw new BpmnPropertyException(e, propertyName);
+			}
 			throw new BpmnException(e);
 		}
 	}
