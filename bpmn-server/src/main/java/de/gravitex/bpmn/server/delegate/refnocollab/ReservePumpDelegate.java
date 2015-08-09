@@ -10,13 +10,16 @@ public class ReservePumpDelegate implements JavaDelegate
 {
 	public void execute(DelegateExecution execution) throws Exception
 	{
-		if (execution.getVariable(ProcessVariables.RefNoCollabVars.VAR_CHOSEN_PUMP_NO) == null)
+		if (execution
+				.getVariable(ProcessVariables.RefNoCollabVars.VAR_CHOSEN_PUMP_NO) == null)
 		{
 			throw new Exception("pump no must be NULL!!");
 		}
-		if (RefuelingHelper.isPumpReserved((int) execution.getVariable(ProcessVariables.RefNoCollabVars.VAR_CHOSEN_PUMP_NO)))
-		{
-			throw new Exception("pump no 4 is already occupied!!");
-		}
+		RefuelingHelper
+		.reservePump(
+				(Long) execution
+						.getVariable(ProcessVariables.RefNoCollabVars.VAR_REFUELING_PROCESS_ID),
+				(int) execution
+						.getVariable(ProcessVariables.RefNoCollabVars.VAR_CHOSEN_PUMP_NO));
 	}
 }
