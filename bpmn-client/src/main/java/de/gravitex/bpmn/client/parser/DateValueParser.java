@@ -1,6 +1,8 @@
-package de.gravitex.bpmn.client.exception;
+package de.gravitex.bpmn.client.parser;
 
 import java.util.Calendar;
+
+import de.gravitex.bpmn.client.exception.VariableParsingException;
 
 public class DateValueParser extends AbstractValueParser {
 

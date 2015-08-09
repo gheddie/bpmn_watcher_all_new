@@ -20,8 +20,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
-import de.gravitex.bpmn.client.exception.VariableParser;
 import de.gravitex.bpmn.client.exception.VariableParsingException;
+import de.gravitex.bpmn.client.parser.VariableParser;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.dto.VariableState;
 

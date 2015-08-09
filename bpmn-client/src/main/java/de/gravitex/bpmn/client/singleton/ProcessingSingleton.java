@@ -36,7 +36,6 @@ public class ProcessingSingleton {
 		Registry registry = null;
 		try {
 			registry = LocateRegistry.getRegistry("localhost", RMIConstants.RMI_PORT);
-//			registry = LocateRegistry.getRegistry("coredbt3.bcc.intern", RMIConstants.RMI_PORT);
 			processEngineProvider = (ProcessEngineProviderRemote) registry.lookup(RMIConstants.RMI_ID);
 		} catch (RemoteException | NotBoundException e) {
 			e.printStackTrace();

@@ -65,6 +65,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("ComplexGatewayTest", true);
 //		deploy("SignalTest", true);
 //		deploy("SynchronisationTest", true);
+//		deploy("TestParallelInstantiationProcess", true);
 //		deploy("ExportRequestTriggerProcess", true);
 //		deploy("ExportRequestEvaluationProcess", true);
 //		deploy("CompensationTest", true);

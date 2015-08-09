@@ -1,8 +1,9 @@
-package de.gravitex.bpmn.client.exception;
+package de.gravitex.bpmn.client.parser;
 
 import java.util.HashMap;
 
 import de.gravitex.bpmn.client.VariablesType;
+import de.gravitex.bpmn.client.exception.VariableParsingException;
 
 public class VariableParser {
 	
