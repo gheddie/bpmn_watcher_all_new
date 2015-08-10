@@ -60,7 +60,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("diagram", true);
 //		deploy("Revoke", true);
 //		deploy("SimpleDecision", true);
-		deploy("RefuelNoCollaboration", true);
+//		deploy("RefuelNoCollaboration", true);
 //		deploy("CashMachine", true);
 //		deploy("ComplexGatewayTest", true);
 //		deploy("SignalTest", true);
@@ -69,6 +69,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("ExportRequestTriggerProcess", true);
 //		deploy("ExportRequestEvaluationProcess", true);
 //		deploy("CompensationTest", true);
+		deploy("MasterQuestion", true);
 	}
 
 	private void deploy(String processKey, boolean addDiagram) {

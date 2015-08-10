@@ -39,4 +39,11 @@ public class ProcessVariables
 	{
 		public static final String VAR_FAULTS_EXCEEDED = "faultsExceeded";
 	}
+	
+	public class MasterQuestion
+	{
+
+		public static final String COMPUTED_RESULT = "computedResult";
+		
+	}
 }
