@@ -53,26 +53,18 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	private void init() {
 		initProcessEngine();
 		//---
-//		deploy("SimpleProcess", true);
-//		deploy("TestCollaboration", true);
-//		deploy("CollaborationSend", true);
-//		deploy("CollaborationReturn", true);
-//		deploy("diagram", true);
-//		deploy("Revoke", true);
-//		deploy("SimpleDecision", true);
-//		deploy("RefuelNoCollaboration", true);
-//		deploy("CashMachine", true);
-//		deploy("ComplexGatewayTest", true);
+		deploy("RefuelNoCollaboration", true);
 //		deploy("SignalTest", true);
 //		deploy("SynchronisationTest", true);
 //		deploy("TestParallelInstantiationProcess", true);
 //		deploy("ExportRequestTriggerProcess", true);
 //		deploy("ExportRequestEvaluationProcess", true);
 //		deploy("CompensationTest", true);
-		deploy("MasterQuestion", true);
+//		deploy("MasterQuestion", true);
+//		deploy("VerySimpleProcess", true);
 	}
 
-	private void deploy(String processKey, boolean addDiagram) {
+	public void deploy(String processKey, boolean addDiagram) {
 		DeploymentBuilder deployment = BpmEngine.getInstance().getProcessEngine().getRepositoryService().createDeployment().addClasspathResource(processKey+".bpmn");
 		if (addDiagram) {
 			deployment.addClasspathResource(processKey+".png");

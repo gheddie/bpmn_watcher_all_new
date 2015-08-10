@@ -42,5 +42,7 @@ public interface ProcessEngineProviderRemote extends Remote {
 
 	public List<String> queryActivities(String processInstanceId) throws RemoteException;
 	
+	public void deploy(String processKey, boolean addDiagram) throws RemoteException;
+	
 	public void deployStream(String resourceName, String processKey, String version) throws RemoteException;
 }

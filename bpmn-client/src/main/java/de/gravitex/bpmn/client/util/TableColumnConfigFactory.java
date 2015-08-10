@@ -38,6 +38,7 @@ public class TableColumnConfigFactory {
 		TableColumnConfig config = new TableColumnConfig(Task.class);
 		
 		config.addPlainTextConfigElement("name", "Name", TableColumnConfigElement.COLUMNTYPE_FULLY_QUALIFIED, false);
+		config.addPlainTextConfigElement("assignee", "Assignee", TableColumnConfigElement.COLUMNTYPE_FULLY_QUALIFIED, false);
 		
 		return config;
 	}
