@@ -26,6 +26,10 @@ public class JobExecutionDTO implements Serializable {
 	}
 
 	public String formatRemainingTime() {
+		if (duedate == null)
+		{
+			return "";
+		}
 		long remaining = duedate.getTime() - Calendar.getInstance().getTimeInMillis();
 		return remaining / 1000 + " s";
 	}
