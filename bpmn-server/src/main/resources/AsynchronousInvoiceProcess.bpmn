@@ -11,7 +11,7 @@
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
     <bpmn2:serviceTask id="ServiceTask_1" camunda:class="de.gravitex.bpmn.server.delegate.asynchronousinvoice.GenerateInvoiceDelegate" camunda:async="true" name="Generate">
       <bpmn2:extensionElements>
-        <fox:failedJobRetryTimeCycle>R7/PT1M</fox:failedJobRetryTimeCycle>
+        <fox:failedJobRetryTimeCycle>R3/PT1M</fox:failedJobRetryTimeCycle>
       </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
@@ -27,7 +27,7 @@
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_4" name="" sourceRef="ServiceTask_2" targetRef="EndEvent_1"/>
     <bpmn2:textAnnotation id="TextAnnotation_1">
-      <bpmn2:text>retry 7 times every minute (R7/PT1M)</bpmn2:text>
+      <bpmn2:text>retry: (R3/PT1M)</bpmn2:text>
     </bpmn2:textAnnotation>
     <bpmn2:association id="Association_1" sourceRef="TextAnnotation_1" targetRef="ServiceTask_1"/>
   </bpmn2:process>
