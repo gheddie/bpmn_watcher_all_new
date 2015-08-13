@@ -72,7 +72,7 @@ public class EnhandedProcessFrame extends JFrame
 	public EnhandedProcessFrame()
 	{
 
-		super("EnhandedProcessFrame");
+		super("ProcessViewer");
 
 		initComponents();
 		putListeners();

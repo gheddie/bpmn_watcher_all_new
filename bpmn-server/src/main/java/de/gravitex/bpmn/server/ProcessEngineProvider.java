@@ -17,8 +17,8 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 
 import org.camunda.bpm.engine.ProcessEngine;
-import org.camunda.bpm.engine.ProcessEngineConfiguration;
 import org.camunda.bpm.engine.ProcessEngineException;
+import org.camunda.bpm.engine.ProcessEngines;
 import org.camunda.bpm.engine.impl.javax.el.PropertyNotFoundException;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
@@ -53,7 +53,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 	private void init() {
 		initProcessEngine();
 		//---
-//		deploy("RefuelNoCollaboration", true);
+		deploy("RefuelNoCollaboration", true);
 //		deploy("SignalTest", true);
 //		deploy("SynchronisationTest", true);
 //		deploy("TestParallelInstantiationProcess", true);
@@ -77,10 +77,13 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 
 	private void initProcessEngine() {
 		
+		//H2 via camunda.cfg.xml
+		ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
+		
 		//H2
-		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
-				.setJdbcUrl("jdbc:h2:mem:my-own-db;DB_CLOSE_DELAY=1000").setJdbcDriver("org.h2.Driver").setJdbcUsername("sa").setJdbcPassword("").setJobExecutorActivate(true)
-				.setDatabaseSchemaUpdate("true").buildProcessEngine();
+//		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
+//				.setJdbcUrl("jdbc:h2:mem:my-own-db;DB_CLOSE_DELAY=1000").setJdbcDriver("org.h2.Driver").setJdbcUsername("sa").setJdbcPassword("").setJobExecutorActivate(true)
+//				.setDatabaseSchemaUpdate("true").buildProcessEngine();
 		
 		//POSTGRES
 //		ProcessEngine processEngine = ProcessEngineConfiguration.createStandaloneInMemProcessEngineConfiguration().setDatabaseSchemaUpdate(ProcessEngineConfiguration.DB_SCHEMA_UPDATE_FALSE)
