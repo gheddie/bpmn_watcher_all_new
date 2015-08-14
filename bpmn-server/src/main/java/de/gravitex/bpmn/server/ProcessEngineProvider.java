@@ -54,7 +54,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 		initProcessEngine();
 		//---
 //		deploy("RefuelNoCollaboration", true);
-//		deploy("SignalTest", true);
+		deploy("SignalTest", true);
 		deploy("SignalTestImproved", true);
 //		deploy("SynchronisationTest", true);
 //		deploy("TestParallelInstantiationProcess", true);
