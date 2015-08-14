@@ -10,7 +10,7 @@ public class DeploymentTestClient
 	{
 		try
 		{
-			ProcessingSingleton.getInstance().deploy("VerySimpleProcess", true);
+			ProcessingSingleton.getInstance().deploy("SignalTest", true);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();

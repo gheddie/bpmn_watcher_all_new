@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_RDfQUEDNEeWXz9RxRBi03A" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
+<bpmn2:definitions xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:bpmn2="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:camunda="http://activiti.org/bpmn" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xsi:schemaLocation="http://www.omg.org/spec/BPMN/20100524/MODEL BPMN20.xsd" id="_RDfQUEDNEeWXz9RxRBi03A" exporter="camunda modeler" exporterVersion="2.7.0" targetNamespace="http://activiti.org/bpmn">
   <bpmn2:collaboration id="_Collaboration_3">
     <bpmn2:participant id="_Participant_2" name="Stelle ausschreiben" processRef="EmploymentAddProcess"/>
   </bpmn2:collaboration>
@@ -30,6 +30,9 @@
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:userTask id="UserTask_3" name="Auschreibung prüfen">
+      <bpmn2:extensionElements>
+        <camunda:executionListener class="de.gravitex.bpmn.server.delegate.bpmnintroduction.CheckJobAddDelegate" event="end"/>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -57,7 +60,7 @@
     <bpmn2:endEvent id="EndEvent_1" name="Stelle ausgeschrieben">
       <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:userTask id="UserTask_1" name="Bedarf melden">
+    <bpmn2:userTask id="UserTask_1" camunda:candidateGroups="group1" name="Bedarf melden">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -66,6 +69,10 @@
       <bpmn2:outgoing>SequenceFlow_1</bpmn2:outgoing>
     </bpmn2:startEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_1" name="" sourceRef="StartEvent_1" targetRef="UserTask_1"/>
+    <bpmn2:textAnnotation id="TextAnnotation_1">
+      <bpmn2:text>CheckJobAddDelegate</bpmn2:text>
+    </bpmn2:textAnnotation>
+    <bpmn2:association id="Association_1" sourceRef="TextAnnotation_1" targetRef="UserTask_3"/>
   </bpmn2:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="_Collaboration_3">
@@ -178,6 +185,13 @@
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="986.0" y="366.0"/>
         </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_TextAnnotation_2" bpmnElement="TextAnnotation_1">
+        <dc:Bounds height="50.0" width="245.0" x="848.0" y="26.0"/>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="BPMNEdge_Association_1" bpmnElement="Association_1" sourceElement="_BPMNShape_TextAnnotation_2" targetElement="_BPMNShape_UserTask_7">
+        <di:waypoint xsi:type="dc:Point" x="851.0" y="76.0"/>
+        <di:waypoint xsi:type="dc:Point" x="716.0" y="104.0"/>
       </bpmndi:BPMNEdge>
     </bpmndi:BPMNPlane>
   </bpmndi:BPMNDiagram>

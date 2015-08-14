@@ -9,7 +9,6 @@ public class DateTimeValueConverter extends OperatorParameterBasedValueConverter
 	
 	private static final DateFormat	dateFormat	= new SimpleDateFormat("dd.MM.yyyy HH:mm");
 
-	
 	public Object parseParameterValue(Object unparsedValue) throws ValueConverterException {
 		
 		if (unparsedValue == null)

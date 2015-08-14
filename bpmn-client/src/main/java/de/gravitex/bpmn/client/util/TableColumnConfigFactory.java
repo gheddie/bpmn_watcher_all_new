@@ -39,6 +39,7 @@ public class TableColumnConfigFactory {
 		
 		config.addPlainTextConfigElement("name", "Name", TableColumnConfigElement.COLUMNTYPE_FULLY_QUALIFIED, false);
 		config.addPlainTextConfigElement("assignee", "Assignee", TableColumnConfigElement.COLUMNTYPE_FULLY_QUALIFIED, false);
+		config.addDateTimeConfigElement("createTime", "Erzeugung", TableColumnConfigElement.COLUMNTYPE_FULLY_QUALIFIED, false, false);
 		
 		return config;
 	}
