@@ -22,5 +22,6 @@
 
 		<mapping class="de.gravitex.bpmn.server.persistence.entity.ExportRequest" />
 		<mapping class="de.gravitex.bpmn.server.persistence.entity.Refueling" />
+		<mapping class="de.gravitex.bpmn.server.persistence.entity.MySystemProperty" />
 	</session-factory>
 </hibernate-configuration>

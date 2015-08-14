@@ -46,4 +46,9 @@ public class ProcessVariables
 		public static final String COMPUTED_RESULT = "computedResult";
 		
 	}
+
+	public class SendInvoiceImproved
+	{
+		public static final String SEND_ERROR_COUNTER = "sendErrorCounter";
+	}
 }
