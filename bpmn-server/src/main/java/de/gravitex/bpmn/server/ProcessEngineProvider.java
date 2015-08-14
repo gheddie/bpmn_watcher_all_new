@@ -55,6 +55,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 		//---
 //		deploy("RefuelNoCollaboration", true);
 //		deploy("SignalTest", true);
+		deploy("SignalTestImproved", true);
 //		deploy("SynchronisationTest", true);
 //		deploy("TestParallelInstantiationProcess", true);
 //		deploy("ExportRequestTriggerProcess", true);
@@ -65,7 +66,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements Proces
 //		deploy("TerminatingExample", true);
 //		deploy("ServiceTaskSynchro", true);
 //		deploy("AsynchronousInvoiceProcess", true);
-		deploy("AsynchronousInvoiceImprovedProcess", true);
+//		deploy("AsynchronousInvoiceImprovedProcess", true);
 	}
 
 	public void deploy(String processKey, boolean addDiagram) {
