@@ -12,7 +12,12 @@ public class SendInvoiceDelegate implements JavaDelegate
 		System.out.println("SendInvoiceDelegate - this will fail...");
 		if (!(AsyncInvoiceHelper.isPostOfficeOpen()))
 		{
+			System.out.println("post office is closed --> throwing exception!!");
 			throw new Exception("post office is closed...");	
+		}
+		else
+		{
+			System.out.println("post office is opened --> passing through!!");
 		}
 	}
 }

@@ -10,8 +10,8 @@ public class MessageCorrelationTestClient
 	{
 		try
 		{
-			ProcessingSingleton.getInstance().correlateMessage("MSG_M2",
-					"BK1", null);
+			ProcessingSingleton.getInstance().correlateMessage("MSG_CLOSE_TICKET",
+					"bk35", null);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();

@@ -23,5 +23,7 @@
 		<mapping class="de.gravitex.bpmn.server.persistence.entity.ExportRequest" />
 		<mapping class="de.gravitex.bpmn.server.persistence.entity.Refueling" />
 		<mapping class="de.gravitex.bpmn.server.persistence.entity.MySystemProperty" />
+		<mapping class="de.gravitex.bpmn.server.persistence.entity.SignalProduct" />
+		<mapping class="de.gravitex.bpmn.server.persistence.entity.SignalOrder" />
 	</session-factory>
 </hibernate-configuration>

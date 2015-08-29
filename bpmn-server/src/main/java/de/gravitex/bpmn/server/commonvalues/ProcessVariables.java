@@ -51,4 +51,20 @@ public class ProcessVariables
 	{
 		public static final String SEND_ERROR_COUNTER = "sendErrorCounter";
 	}
+	
+	public class TroubleTicket
+	{
+		public static final String VAR_TICKET_NUMBER = "ticketNumber";
+		
+		public static final String VAR_TICKET_ACCEPTED = "ticketAccepted";
+		
+		public static final String VAR_TICKET_ASSIGNEE_GROUP = "ticketAssigneeGroup";
+	}
+	
+	public class TroubleTicketNew
+	{
+		public static final String VAR_ESCALATION_TIME = "escalationTime";
+
+		public static final String VAR_ESCALATION_LEVEL = "escalationLevel";
+	}
 }

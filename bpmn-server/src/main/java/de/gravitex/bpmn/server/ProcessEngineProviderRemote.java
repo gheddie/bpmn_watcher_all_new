@@ -20,6 +20,8 @@ public interface ProcessEngineProviderRemote extends Remote {
 
 	public List<Task> queryTasks(String processInstanceId) throws RemoteException;
 	
+	public List<Task> queryTasks(String businessKey, String taskName) throws RemoteException;
+	
 	public List<JobExecutionDTO> queryJobs(String processInstanceId) throws RemoteException;
 
 	public DiagramLayout getDiagramLayout(String processDefinitionId) throws RemoteException;
@@ -42,7 +44,9 @@ public interface ProcessEngineProviderRemote extends Remote {
 
 	public List<String> queryActivities(String processInstanceId) throws RemoteException;
 	
-	public void deploy(String processKey, boolean addDiagram) throws RemoteException;
+	public void deploy(String processKey, boolean addDiagram) throws RemoteException, BpmnException;
 	
 	public void deployStream(String resourceName, String processKey, String version) throws RemoteException;
+	
+	public void triggerSignal(String signalName) throws RemoteException;
 }

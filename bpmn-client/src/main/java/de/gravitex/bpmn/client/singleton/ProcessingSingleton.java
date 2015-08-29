@@ -9,6 +9,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.repository.DiagramLayout;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -58,6 +59,11 @@ public class ProcessingSingleton
 	}
 
 	// ---
+	
+	public List<Task> queryTasks(String businessKey, String taskId) throws RemoteException
+	{
+		return processEngineProvider.queryTasks(businessKey, taskId);
+	}
 
 	public List<Task> queryTasks(String processInstanceId)
 			throws RemoteException
@@ -93,6 +99,11 @@ public class ProcessingSingleton
 	{
 		processEngineProvider.correlateMessage(messageName, businessKey,
 				variables);
+	}
+	
+	public void triggerSignal(String signalName) throws RemoteException
+	{
+		processEngineProvider.triggerSignal(signalName);
 	}
 
 	public void startProcessInstanceByMessage(String messageName)
@@ -131,7 +142,7 @@ public class ProcessingSingleton
 		return processEngineProvider.queryActivities(processInstanceId);
 	}
 
-	public void deploy(String processKey, boolean addDiagram) throws RemoteException
+	public void deploy(String processKey, boolean addDiagram) throws RemoteException, BpmnException
 	{
 		processEngineProvider.deploy(processKey, addDiagram);
 	}

@@ -19,7 +19,7 @@
         <bpmn2:flowNodeRef>EndEvent_1</bpmn2:flowNodeRef>
       </bpmn2:lane>
     </bpmn2:laneSet>
-    <bpmn2:userTask id="UserTask_2" name="Ausschreibung verfassen">
+    <bpmn2:userTask id="UserTask_2" camunda:assignee="demo" name="Ausschreibung verfassen">
       <bpmn2:incoming>SequenceFlow_2</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -29,10 +29,7 @@
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_4</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
-    <bpmn2:userTask id="UserTask_3" name="Auschreibung prüfen">
-      <bpmn2:extensionElements>
-        <camunda:executionListener class="de.gravitex.bpmn.server.delegate.bpmnintroduction.CheckJobAddDelegate" event="end"/>
-      </bpmn2:extensionElements>
+    <bpmn2:userTask id="UserTask_3" camunda:assignee="demo" name="Auschreibung prüfen">
       <bpmn2:incoming>SequenceFlow_4</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -46,13 +43,13 @@
     <bpmn2:sequenceFlow id="flowNotOk" name="Nicht Ok" sourceRef="ExclusiveGateway_2" targetRef="UserTask_4">
       <bpmn2:conditionExpression xsi:type="bpmn2:tFormalExpression">${addOk==false}</bpmn2:conditionExpression>
     </bpmn2:sequenceFlow>
-    <bpmn2:userTask id="UserTask_4" name="Ausschreibung überarbeiten">
+    <bpmn2:userTask id="UserTask_4" camunda:assignee="demo" name="Ausschreibung überarbeiten">
       <bpmn2:incoming>flowNotOk</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_7</bpmn2:outgoing>
     </bpmn2:userTask>
     <bpmn2:sequenceFlow id="SequenceFlow_7" name="" sourceRef="UserTask_4" targetRef="ExclusiveGateway_1"/>
     <bpmn2:sequenceFlow id="flowOk" name="Ok" sourceRef="ExclusiveGateway_2" targetRef="UserTask_5"/>
-    <bpmn2:userTask id="UserTask_5" name="Ausschreibung veröffentlichen">
+    <bpmn2:userTask id="UserTask_5" camunda:assignee="demo" name="Ausschreibung veröffentlichen">
       <bpmn2:incoming>flowOk</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_9</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -60,7 +57,7 @@
     <bpmn2:endEvent id="EndEvent_1" name="Stelle ausgeschrieben">
       <bpmn2:incoming>SequenceFlow_9</bpmn2:incoming>
     </bpmn2:endEvent>
-    <bpmn2:userTask id="UserTask_1" camunda:candidateGroups="group1" name="Bedarf melden">
+    <bpmn2:userTask id="UserTask_1" camunda:candidateGroups="group1" camunda:assignee="demo" name="Bedarf melden">
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:userTask>

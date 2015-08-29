@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<deployments>
+	<deployment processname="RefuelNoCollaboration" enabled="false" />
+	<deployment processname="SignalTest" enabled="true" />
+	<deployment processname="SynchronisationTest" enabled="false" />
+	<deployment processname="TestParallelInstantiationProcess" enabled="false" />
+	<deployment processname="ExportRequestTriggerProcess" enabled="false" />
+	<deployment processname="ExportRequestEvaluationProcess" enabled="false" />
+	<deployment processname="CompensationTest" enabled="true" />
+	<deployment processname="MasterQuestion" enabled="false" />
+	<deployment processname="VerySimpleProcess" enabled="false" />
+	<deployment processname="TerminatingExample" enabled="true" />
+	<deployment processname="ServiceTaskSynchro" enabled="false" />
+	<deployment processname="AsynchronousInvoiceProcess" enabled="false" />
+	<deployment processname="AsynchronousInvoiceImprovedProcess" enabled="false" />
+	<deployment processname="BpmnIntroduction" enabled="false" />
+	<deployment processname="AirportCollaborationTestProcess" enabled="true" />
+	<deployment processname="EventSubProcessTest" enabled="false" />
+	<deployment processname="EscalationTestProcess" enabled="false" />
+	<deployment processname="LinkTestProcess" enabled="false" />
+	<deployment processname="CallActivityTestProcess" enabled="false" />
+	<deployment processname="creditappliance/CreditApplianceProcess" enabled="false" />
+	<deployment processname="creditappliance/SchufaProcess" enabled="false" />
+	<deployment processname="callactivity/CallActivityMultipleErrors" enabled="false" />
+	<deployment processname="TransactBorders" enabled="false" />
+	<deployment processname="collaboration/StandAloneSender" enabled="false" />
+	<deployment processname="collaboration/StandAloneReceiver" enabled="false" />
+	<deployment processname="IntermediateTestProcess" enabled="false" />
+	<deployment processname="NoGateways" enabled="false" />
+	<deployment processname="troubleticket/StartTrouble" enabled="false" />
+	<deployment processname="troubleticket/SolveAttempt" enabled="false" />
+	<deployment processname="ComplexGatewayTest" enabled="false" />
+	<!-- tt new -->
+	<deployment processname="ttnew/CustomerTroubleRequest" enabled="true" />
+</deployments>

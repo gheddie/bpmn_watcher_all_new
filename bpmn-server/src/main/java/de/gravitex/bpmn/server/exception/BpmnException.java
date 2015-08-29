@@ -9,4 +9,8 @@ public class BpmnException extends Exception {
 	public BpmnException(ProcessEngineException e) {
 		super(e);
 	}
+	
+	public BpmnException(String message, ProcessEngineException e) {
+		super(message, e);
+	}
 }

@@ -8,7 +8,7 @@ import de.gravitex.bpmn.server.commonvalues.ProcessVariables.RefNoCollabVars;
 
 public class CheckPinDelegate implements JavaDelegate
 {
-	private static final Object PIN = "0815";
+	private static final String PIN = "0815";
 
 	public void execute(DelegateExecution execution) throws Exception
 	{

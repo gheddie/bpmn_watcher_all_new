@@ -1,20 +1,21 @@
 package de.gravitex.bpmn.server;
 
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
+import java.rmi.RemoteException;
+
+import de.gravitex.bpmn.server.exception.BpmnException;
 
 public class BpmnServerStarter {
 
 	public static void main(String[] args) {
-		ProcessEngineProvider provider = null;
-		Registry registry = null;
-		try {
-			provider = new ProcessEngineProvider();
-			registry = LocateRegistry.createRegistry(RMIConstants.RMI_PORT);
-			registry.bind(RMIConstants.RMI_ID, provider);
-			System.out.println("process server is started...");	
-		} catch (Exception e) {
+		try
+		{
+			ProcessEngineProvider provider = new ProcessEngineProvider();
+		} catch (RemoteException e)
+		{
 			e.printStackTrace();
+		} catch (BpmnException e) {
+			System.err.println("unable to start : " + e.getMessage());
+			System.exit(0);
 		}
 	}
 }
