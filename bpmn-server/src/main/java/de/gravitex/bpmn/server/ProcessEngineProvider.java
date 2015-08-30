@@ -218,6 +218,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 				.createTaskQuery().processInstanceId(processInstanceId).list();
 	}
 	
+	@SuppressWarnings("deprecation")
 	public List<FormFieldDTO> queryFormFields(String taskId) throws RemoteException
 	{
 		List<FormFieldDTO> dtos = new ArrayList<>();
@@ -227,6 +228,7 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 			dto = new FormFieldDTO();
 			dto.setVariableName(formField.getLabel());
 			dto.setTypeName(formField.getTypeName());
+			dto.setDefaultValue(formField.getDefaultValue());
 			dtos.add(dto);
 		}
 		return dtos;

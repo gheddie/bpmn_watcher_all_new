@@ -11,8 +11,11 @@ import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import org.camunda.bpm.engine.task.Task;
+
 import de.gravitex.bpmn.client.DialogResultState;
 import de.gravitex.bpmn.server.dto.FormFieldDTO;
+import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 
 public class TaskFormDialog extends JDialog
 {
@@ -42,12 +45,16 @@ public class TaskFormDialog extends JDialog
 
 	private DialogResultState resultState;
 
-	public TaskFormDialog(List<FormFieldDTO> formFields, JFrame owner, int x, int y)
+	private List<VariableInstanceDTO> instanceVariables;
+
+	public TaskFormDialog(Task actualTask, List<FormFieldDTO> formFields, List<VariableInstanceDTO> instanceVariables, JFrame owner, int x, int y)
 	{
 		super();
+		setTitle(actualTask.getName());
 		setSize(800, 600);
 		setLocation(x, y);
 		this.formFields = formFields;
+		this.instanceVariables = instanceVariables;
 		setLayout(null);
 		putComponents();
 		putListeners();
@@ -103,6 +110,10 @@ public class TaskFormDialog extends JDialog
 			valueComponent = getComponentByTypeName(formField.getTypeName());
 			((Component) valueComponent).setBounds(X_INSET + LABEL_WIDTH + HORIZONTAL_GAP, yPos, COMP_WIDTH, COMPONENT_HEIGHT);
 			add((Component) valueComponent);	
+			
+			//set preset value (if given)
+			valueComponent.applyValue(getVariableValue(formField.getVariableName()));
+			
 			registeredComponents.put(formField.getVariableName(), valueComponent);
 			yPos += COMPONENT_HEIGHT + VERTICAL_GAP;
 		}
@@ -115,6 +126,19 @@ public class TaskFormDialog extends JDialog
 		add(abortButton);
 	}
 
+	private Object getVariableValue(String variableName)
+	{
+		for (VariableInstanceDTO dto : instanceVariables)
+		{
+			if (variableName.equals(dto.getName()))
+			{
+				return dto.getValue();
+			}
+		}
+		//nothing found...
+		return null;
+	}
+
 	private TaskFormComponent getComponentByTypeName(String typeName)
 	{
 		switch (typeName) {
@@ -122,6 +146,8 @@ public class TaskFormDialog extends JDialog
 			return new TaskFormTextField();
 		case "boolean":
 			return new TaskFormCheckBox();
+		case "long":
+			return new TaskFormNumericTextField();
 		default:
 			return new TaskFormTextField();
 		}

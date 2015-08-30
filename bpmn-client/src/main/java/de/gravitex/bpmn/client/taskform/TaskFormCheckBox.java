@@ -10,4 +10,9 @@ public class TaskFormCheckBox extends JCheckBox implements TaskFormComponent
 	{
 		return new Boolean(isSelected());
 	}
+	
+	public void applyValue(Object value)
+	{
+		// TODO Auto-generated method stub
+	}
 }

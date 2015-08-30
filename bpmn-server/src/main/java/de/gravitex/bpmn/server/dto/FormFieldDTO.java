@@ -9,6 +9,8 @@ public class FormFieldDTO implements Serializable
 	private String variableName;
 
 	private String typeName;
+
+	private Object defaultValue;
 	
 	public String getVariableName()
 	{
@@ -28,5 +30,15 @@ public class FormFieldDTO implements Serializable
 	public void setTypeName(String typeName)
 	{
 		this.typeName = typeName;
+	}
+
+	public Object getDefaultValue()
+	{
+		return defaultValue;
+	}
+	
+	public void setDefaultValue(Object defaultValue)
+	{
+		this.defaultValue = defaultValue;
 	}
 }

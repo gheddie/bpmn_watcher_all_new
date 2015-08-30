@@ -8,6 +8,11 @@
       <bpmn2:compensateEventDefinition id="_CompensateEventDefinition_3" waitForCompletion="false"/>
     </bpmn2:boundaryEvent>
     <bpmn2:userTask id="UserTask_1" name="Book hotel">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="carRequired" label="carRequired" type="boolean" defaultValue="false"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_1</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_2</bpmn2:outgoing>
     </bpmn2:userTask>
@@ -52,6 +57,11 @@
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="flowDoJourney" name="yes" sourceRef="ExclusiveGateway_1" targetRef="EndEvent_1"/>
     <bpmn2:userTask id="UserTask_5" name="Start journey?">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="startJourney" label="startJourney" type="boolean" defaultValue="true"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_1suoqsb</bpmn2:outgoing>
     </bpmn2:userTask>

@@ -11,7 +11,7 @@ public class DeploymentTestClient
 	{
 		try
 		{
-			ProcessingSingleton.getInstance().deploy("SignalTest", true);
+			ProcessingSingleton.getInstance().deploy("CompensationTest", true);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();

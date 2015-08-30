@@ -172,14 +172,22 @@ public class EnhandedProcessFrame extends JFrame
 		try
 		{
 			List<FormFieldDTO> formFields = ProcessingSingleton.getInstance().queryFormFields(actualTask.getId());
+			if ((formFields == null) || (formFields.size() == 0))
+			{
+				//complete the task without variables...
+				completeTask(null);
+			}
 			System.out.println("queried "+formFields.size()+" form fields.");
 			for (FormFieldDTO dto : formFields)
 			{
 				System.out.println("name : " + dto.getVariableName());
 				System.out.println("type : " + dto.getTypeName());
+				System.out.println("default : " + dto.getDefaultValue());
 			}
 			Point location = getLocation();
-			TaskFormDialog taskFormDialog = new TaskFormDialog(formFields, EnhandedProcessFrame.this,
+			List<VariableInstanceDTO> instanceVariables = ProcessingSingleton.getInstance()
+					.queryVariables(selectedProcessInstance.getId());
+			TaskFormDialog taskFormDialog = new TaskFormDialog(actualTask, formFields, instanceVariables, EnhandedProcessFrame.this,
 					((int) location.getX()) + 100,
 					((int) location.getY()) + 100);
 			taskFormDialog.setSize(800, 600);

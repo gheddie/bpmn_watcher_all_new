@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <deployments>
 	<deployment processname="RefuelNoCollaboration" enabled="true" />
-	<deployment processname="SignalTest" enabled="false" />
+	<deployment processname="SignalTest" enabled="true" />
 	<deployment processname="SynchronisationTest" enabled="false" />
 	<deployment processname="TestParallelInstantiationProcess" enabled="false" />
 	<deployment processname="ExportRequestTriggerProcess" enabled="false" />
 	<deployment processname="ExportRequestEvaluationProcess" enabled="false" />
-	<deployment processname="CompensationTest" enabled="false" />
+	<deployment processname="CompensationTest" enabled="true" />
 	<deployment processname="MasterQuestion" enabled="false" />
 	<deployment processname="VerySimpleProcess" enabled="false" />
-	<deployment processname="TerminatingExample" enabled="false" />
+	<deployment processname="TerminatingExample" enabled="true" />
 	<deployment processname="ServiceTaskSynchro" enabled="false" />
 	<deployment processname="AsynchronousInvoiceProcess" enabled="false" />
 	<deployment processname="AsynchronousInvoiceImprovedProcess" enabled="false" />
