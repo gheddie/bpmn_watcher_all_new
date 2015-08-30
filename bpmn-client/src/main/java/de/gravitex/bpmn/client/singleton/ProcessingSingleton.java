@@ -12,6 +12,7 @@ import javax.swing.ImageIcon;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.form.FormField;
 import org.camunda.bpm.engine.form.TaskFormData;
+import org.camunda.bpm.engine.repository.DiagramElement;
 import org.camunda.bpm.engine.repository.DiagramLayout;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -159,5 +160,10 @@ public class ProcessingSingleton
 			String version) throws RemoteException
 	{
 		processEngineProvider.deployStream(resourceName, processKey, version);
+	}
+
+	public Map<String, DiagramElement> queryDiagramElements(String processDefinitionId) throws RemoteException
+	{
+		return processEngineProvider.queryDiagramElements(processDefinitionId);
 	}
 }

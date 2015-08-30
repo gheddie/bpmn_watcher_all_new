@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.swing.ImageIcon;
 
+import org.camunda.bpm.engine.repository.DiagramElement;
 import org.camunda.bpm.engine.repository.DiagramLayout;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -52,4 +53,6 @@ public interface ProcessEngineProviderRemote extends Remote {
 	public void deployStream(String resourceName, String processKey, String version) throws RemoteException;
 	
 	public void triggerSignal(String signalName) throws RemoteException;
+
+	public Map<String, DiagramElement> queryDiagramElements(String processDefinition) throws RemoteException;
 }

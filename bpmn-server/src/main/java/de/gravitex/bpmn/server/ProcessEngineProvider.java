@@ -30,6 +30,7 @@ import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.impl.javax.el.PropertyNotFoundException;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
+import org.camunda.bpm.engine.repository.DiagramElement;
 import org.camunda.bpm.engine.repository.DiagramLayout;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.Job;
@@ -393,5 +394,10 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 	{
 		BpmEngine.getInstance().getProcessEngine().getRuntimeService()
 				.signalEventReceived(signalName);
+	}
+
+	public Map<String, DiagramElement> queryDiagramElements(String processDefinitionId) throws RemoteException
+	{
+		return BpmEngine.getInstance().getProcessEngine().getRepositoryService().getProcessDiagramLayout(processDefinitionId).getElements();
 	}
 }

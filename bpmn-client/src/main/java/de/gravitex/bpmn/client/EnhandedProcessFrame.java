@@ -28,6 +28,7 @@ import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
 
 import org.apache.log4j.Logger;
+import org.camunda.bpm.engine.repository.DiagramElement;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
@@ -528,6 +529,18 @@ public class EnhandedProcessFrame extends JFrame
 		this.selectedProcessInstance = (ProcessInstance) selectedProcessInstanceObj;
 		refreshProcessPanel();
 		fillProcessVariables();
+		
+		//query elements
+		try
+		{
+			for (DiagramElement diagramElement : ProcessingSingleton.getInstance().queryDiagramElements(selectedProcessDefinition.getId()).values())
+			{
+				System.out.println("diagramElement : " + diagramElement);
+			}	
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	public void actualTasksBeanSelected(Object selectedActualTaskObj)
