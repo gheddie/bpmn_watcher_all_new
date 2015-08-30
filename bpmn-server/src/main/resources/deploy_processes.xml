@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <deployments>
-	<deployment processname="RefuelNoCollaboration" enabled="false" />
-	<deployment processname="SignalTest" enabled="true" />
+	<deployment processname="RefuelNoCollaboration" enabled="true" />
+	<deployment processname="SignalTest" enabled="false" />
 	<deployment processname="SynchronisationTest" enabled="false" />
 	<deployment processname="TestParallelInstantiationProcess" enabled="false" />
 	<deployment processname="ExportRequestTriggerProcess" enabled="false" />
 	<deployment processname="ExportRequestEvaluationProcess" enabled="false" />
-	<deployment processname="CompensationTest" enabled="true" />
+	<deployment processname="CompensationTest" enabled="false" />
 	<deployment processname="MasterQuestion" enabled="false" />
 	<deployment processname="VerySimpleProcess" enabled="false" />
-	<deployment processname="TerminatingExample" enabled="true" />
+	<deployment processname="TerminatingExample" enabled="false" />
 	<deployment processname="ServiceTaskSynchro" enabled="false" />
 	<deployment processname="AsynchronousInvoiceProcess" enabled="false" />
 	<deployment processname="AsynchronousInvoiceImprovedProcess" enabled="false" />
-	<deployment processname="BpmnIntroduction" enabled="false" />
-	<deployment processname="AirportCollaborationTestProcess" enabled="true" />
+	<deployment processname="BpmnIntroduction" enabled="true" />
+	<deployment processname="AirportCollaborationTestProcess" enabled="false" />
 	<deployment processname="EventSubProcessTest" enabled="false" />
 	<deployment processname="EscalationTestProcess" enabled="false" />
 	<deployment processname="LinkTestProcess" enabled="false" />
@@ -30,6 +30,7 @@
 	<deployment processname="troubleticket/StartTrouble" enabled="false" />
 	<deployment processname="troubleticket/SolveAttempt" enabled="false" />
 	<deployment processname="ComplexGatewayTest" enabled="false" />
+	<deployment processname="FormFieldTestProcess" enabled="true" />
 	<!-- tt new -->
-	<deployment processname="ttnew/CustomerTroubleRequest" enabled="true" />
+	<deployment processname="ttnew/CustomerTroubleRequest" enabled="false" />
 </deployments>

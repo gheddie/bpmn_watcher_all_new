@@ -26,8 +26,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JToolBar;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 
 import org.apache.log4j.Logger;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
@@ -35,8 +33,10 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 
 import de.gravitex.bpmn.client.singleton.ProcessingSingleton;
+import de.gravitex.bpmn.client.taskform.TaskFormDialog;
 import de.gravitex.bpmn.client.util.TableColumnConfigFactory;
 import de.gravitex.bpmn.client.util.table.GenericBpmnTable;
+import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.dto.VariableState;
 import de.gravitex.bpmn.server.exception.BpmnException;
@@ -138,16 +138,26 @@ public class EnhandedProcessFrame extends JFrame
 				if (e.getClickCount() == 2)
 				{
 					System.out.println("mouse double clicked...");
+					//---
 					try
 					{
-						completeTask(null);
+						showTaskForm();
 					} catch (BpmnException e1)
 					{
-						if (e1 instanceof BpmnPropertyException)
-						{
-							handleSimpleExecution((BpmnPropertyException) e1);	
-						}
+						e1.printStackTrace();
 					}
+					//---
+//					try
+//					{
+//						completeTask(null);
+//					} catch (BpmnException e1)
+//					{
+//						if (e1 instanceof BpmnPropertyException)
+//						{
+//							handleSimpleExecution((BpmnPropertyException) e1);	
+//						}
+//					}
+					//---
 				}
 			}
 		});
@@ -155,6 +165,38 @@ public class EnhandedProcessFrame extends JFrame
 		// tbVariables
 		tbVariables.setRelatedMethod("processVariables");
 		tbVariables.setRelatedView(this);
+	}
+	
+	private void showTaskForm() throws BpmnException
+	{
+		try
+		{
+			List<FormFieldDTO> formFields = ProcessingSingleton.getInstance().queryFormFields(actualTask.getId());
+			System.out.println("queried "+formFields.size()+" form fields.");
+			for (FormFieldDTO dto : formFields)
+			{
+				System.out.println("name : " + dto.getVariableName());
+				System.out.println("type : " + dto.getTypeName());
+			}
+			Point location = getLocation();
+			TaskFormDialog taskFormDialog = new TaskFormDialog(formFields, EnhandedProcessFrame.this,
+					((int) location.getX()) + 100,
+					((int) location.getY()) + 100);
+			taskFormDialog.setSize(800, 600);
+			taskFormDialog.setVisible(true);
+			if (taskFormDialog.getResultState().equals(DialogResultState.OK))
+			{
+				HashMap<String, Object> result = taskFormDialog.getResult();
+				for (String key : result.keySet())
+				{
+					System.out.println("result ("+key+") : " + result.get(key));
+				}	
+				completeTask(result);
+			}
+		} catch (RemoteException e)
+		{
+			e.printStackTrace();
+		}
 	}
 
 	private void fillDeployedDefinitions()

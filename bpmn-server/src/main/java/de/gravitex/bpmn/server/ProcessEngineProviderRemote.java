@@ -12,6 +12,7 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 
+import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.exception.BpmnException;
@@ -19,6 +20,8 @@ import de.gravitex.bpmn.server.exception.BpmnException;
 public interface ProcessEngineProviderRemote extends Remote {
 
 	public List<Task> queryTasks(String processInstanceId) throws RemoteException;
+	
+	public List<FormFieldDTO> queryFormFields(String taskId) throws RemoteException;
 	
 	public List<Task> queryTasks(String businessKey, String taskName) throws RemoteException;
 	

@@ -25,6 +25,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.form.FormField;
+import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.impl.javax.el.PropertyNotFoundException;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
@@ -38,6 +40,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.dto.VariableState;
@@ -213,6 +216,20 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 	{
 		return BpmEngine.getInstance().getProcessEngine().getTaskService()
 				.createTaskQuery().processInstanceId(processInstanceId).list();
+	}
+	
+	public List<FormFieldDTO> queryFormFields(String taskId) throws RemoteException
+	{
+		List<FormFieldDTO> dtos = new ArrayList<>();
+		FormFieldDTO dto = null;
+		for (FormField formField : BpmEngine.getInstance().getProcessEngine().getFormService().getTaskFormData(taskId).getFormFields())
+		{
+			dto = new FormFieldDTO();
+			dto.setVariableName(formField.getLabel());
+			dto.setTypeName(formField.getTypeName());
+			dtos.add(dto);
+		}
+		return dtos;
 	}
 	
 	public List<Task> queryTasks(String businessKey, String taskId) throws RemoteException

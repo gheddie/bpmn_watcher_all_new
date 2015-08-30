@@ -81,6 +81,11 @@
     </bpmn2:boundaryEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_22" name="" sourceRef="BoundaryEvent_2" targetRef="ServiceTask_6"/>
     <bpmn2:userTask id="UserTask_2" camunda:assignee="demo" name="Enter PIN">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="providedPin" label="providedPin" type="string"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_13</bpmn2:incoming>
       <bpmn2:incoming>SequenceFlow_7</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_3</bpmn2:outgoing>
@@ -182,6 +187,11 @@
     </bpmn2:intermediateCatchEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_20" name="" sourceRef="IntermediateCatchEvent_1" targetRef="ChoosePumpTask"/>
     <bpmn2:userTask id="ChoosePumpTask" camunda:assignee="demo" name="Choose fuel pump">
+      <bpmn2:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="chosenPumpNo" label="chosenPumpNo" type="long" defaultValue="0"/>
+        </camunda:formData>
+      </bpmn2:extensionElements>
       <bpmn2:incoming>SequenceFlow_20</bpmn2:incoming>
       <bpmn2:outgoing>SequenceFlow_14</bpmn2:outgoing>
     </bpmn2:userTask>

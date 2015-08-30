@@ -10,6 +10,8 @@ import java.util.Map;
 import javax.swing.ImageIcon;
 
 import org.camunda.bpm.engine.ProcessEngineException;
+import org.camunda.bpm.engine.form.FormField;
+import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.repository.DiagramLayout;
 import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
@@ -17,6 +19,7 @@ import org.camunda.bpm.engine.task.Task;
 
 import de.gravitex.bpmn.server.ProcessEngineProviderRemote;
 import de.gravitex.bpmn.server.RMIConstants;
+import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
 import de.gravitex.bpmn.server.exception.BpmnException;
@@ -63,6 +66,11 @@ public class ProcessingSingleton
 	public List<Task> queryTasks(String businessKey, String taskId) throws RemoteException
 	{
 		return processEngineProvider.queryTasks(businessKey, taskId);
+	}
+	
+	public List<FormFieldDTO> queryFormFields(String taskId) throws RemoteException
+	{
+		return processEngineProvider.queryFormFields(taskId);
 	}
 
 	public List<Task> queryTasks(String processInstanceId)
