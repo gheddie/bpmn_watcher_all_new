@@ -20,7 +20,7 @@ import org.junit.Rule;
 import org.junit.Test;
 
 import de.gravitex.bpmn.server.commonvalues.ProcessVariables;
-import de.gravitex.bpmn.server.per.HibernateUtil;
+import de.gravitex.bpmn.server.persistence.HibernateUtil;
 import de.gravitex.bpmn.server.persistence.entity.Refueling;
 import de.gravitex.bpmn.server.persistence.entity.RefuelingStatus;
 

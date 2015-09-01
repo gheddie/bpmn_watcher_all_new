@@ -12,15 +12,18 @@ public class MessageCorrelationTestClient
 	{
 		try
 		{
-			//start process
+			// --------------------------------------------- start process
 //			Map<String, Object> variables = new HashMap<>();
 //			variables.put("libraryName", "someCoolLibrary");
 //			ProcessingSingleton.getInstance().correlateMessage("MSG_LIB_REQ",
-//					"moo", variables);
-			//available
+//					null, variables);
+			// --------------------------------------------- available
 			HashMap<String, Object> variables = new HashMap<String, Object>();
 			ProcessingSingleton.getInstance().correlateMessage("MSG_LIC_AVAIL",
 					null, variables);
+			// --------------------------------------------- intermediate test
+//			ProcessingSingleton.getInstance().correlateMessage("MSG_PTT_1",
+//			"bk54", null);
 		} catch (RemoteException e)
 		{
 			e.printStackTrace();

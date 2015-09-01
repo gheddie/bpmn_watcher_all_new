@@ -5,7 +5,7 @@ import java.util.HashMap;
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 
-import de.gravitex.bpmn.server.per.HibernateUtil;
+import de.gravitex.bpmn.server.persistence.HibernateUtil;
 import de.gravitex.bpmn.server.persistence.entity.SignalOrder;
 import de.gravitex.bpmn.server.persistence.entity.SignalProduct;
 

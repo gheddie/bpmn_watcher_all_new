@@ -39,7 +39,7 @@
       <bpmn2:outgoing>SequenceFlow_17</bpmn2:outgoing>
     </bpmn2:exclusiveGateway>
     <bpmn2:sequenceFlow id="SequenceFlow_17" name="" sourceRef="ExclusiveGateway_5" targetRef="ServiceTask_2"/>
-    <bpmn2:endEvent id="EndEvent_1">
+    <bpmn2:endEvent id="EndEvent_1" name="Benutzer informiert">
       <bpmn2:incoming>SequenceFlow_19</bpmn2:incoming>
     </bpmn2:endEvent>
     <bpmn2:sequenceFlow id="SequenceFlow_19" name="" sourceRef="ServiceTask_2" targetRef="EndEvent_1"/>
@@ -412,14 +412,14 @@
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="_BPMNShape_EndEvent_27" bpmnElement="EndEvent_1">
-        <dc:Bounds height="36.0" width="36.0" x="847.0" y="120.0"/>
+        <dc:Bounds height="36.0" width="36.0" x="901.0" y="120.0"/>
         <bpmndi:BPMNLabel>
-          <dc:Bounds height="0.0" width="0.0" x="865.0" y="161.0"/>
+          <dc:Bounds height="0.0" width="0.0" x="919.0" y="161.0"/>
         </bpmndi:BPMNLabel>
       </bpmndi:BPMNShape>
       <bpmndi:BPMNEdge id="BPMNEdge_SequenceFlow_21" bpmnElement="SequenceFlow_19" sourceElement="_BPMNShape_ServiceTask_3" targetElement="_BPMNShape_EndEvent_27">
         <di:waypoint xsi:type="dc:Point" x="796.0" y="138.0"/>
-        <di:waypoint xsi:type="dc:Point" x="847.0" y="138.0"/>
+        <di:waypoint xsi:type="dc:Point" x="901.0" y="138.0"/>
         <bpmndi:BPMNLabel>
           <dc:Bounds height="6.0" width="6.0" x="818.0" y="138.0"/>
         </bpmndi:BPMNLabel>

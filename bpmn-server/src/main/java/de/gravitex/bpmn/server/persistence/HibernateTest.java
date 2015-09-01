@@ -5,7 +5,6 @@ import java.util.List;
 import org.hibernate.Query;
 import org.hibernate.Session;
 
-import de.gravitex.bpmn.server.per.HibernateUtil;
 import de.gravitex.bpmn.server.persistence.entity.ExportRequest;
 import de.gravitex.bpmn.server.persistence.entity.ExportRequestStatus;
 
