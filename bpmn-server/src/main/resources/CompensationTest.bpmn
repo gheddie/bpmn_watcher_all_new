@@ -81,6 +81,11 @@
         <bpmn2:outgoing>SequenceFlow_5</bpmn2:outgoing>
       </bpmn2:startEvent>
       <bpmn2:userTask id="UserTask_6" name="Cancel car">
+        <bpmn2:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carCancelled" label="carCancelled" type="boolean" defaultValue="false"/>
+          </camunda:formData>
+        </bpmn2:extensionElements>
         <bpmn2:incoming>SequenceFlow_5</bpmn2:incoming>
         <bpmn2:outgoing>SequenceFlow_10</bpmn2:outgoing>
       </bpmn2:userTask>

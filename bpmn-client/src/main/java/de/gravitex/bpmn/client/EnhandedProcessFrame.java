@@ -408,7 +408,7 @@ public class EnhandedProcessFrame extends JFrame
 			variableInstances = ProcessingSingleton.getInstance()
 					.queryVariables(selectedProcessInstance.getId());
 			System.out.println(variableInstances.size()
-					+ " variable instances found.");
+					+ " variable instances found for process instance (ID="+selectedProcessInstance.getId()+"), DEF-ID="+selectedProcessInstance.getProcessDefinitionId()+".");
 
 			// staged variables
 			for (String key : stagedProcessVariables.keySet())
@@ -529,18 +529,6 @@ public class EnhandedProcessFrame extends JFrame
 		this.selectedProcessInstance = (ProcessInstance) selectedProcessInstanceObj;
 		refreshProcessPanel();
 		fillProcessVariables();
-		
-		//query elements
-		try
-		{
-			for (DiagramElement diagramElement : ProcessingSingleton.getInstance().queryDiagramElements(selectedProcessDefinition.getId()).values())
-			{
-				System.out.println("diagramElement : " + diagramElement);
-			}	
-		} catch (RemoteException e)
-		{
-			e.printStackTrace();
-		}
 	}
 
 	public void actualTasksBeanSelected(Object selectedActualTaskObj)

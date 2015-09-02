@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -25,8 +26,8 @@ import javax.xml.parsers.ParserConfigurationException;
 import org.camunda.bpm.engine.ProcessEngine;
 import org.camunda.bpm.engine.ProcessEngineException;
 import org.camunda.bpm.engine.ProcessEngines;
+import org.camunda.bpm.engine.RepositoryService;
 import org.camunda.bpm.engine.form.FormField;
-import org.camunda.bpm.engine.form.TaskFormData;
 import org.camunda.bpm.engine.impl.javax.el.PropertyNotFoundException;
 import org.camunda.bpm.engine.management.JobDefinition;
 import org.camunda.bpm.engine.repository.DeploymentBuilder;
@@ -38,9 +39,13 @@ import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.runtime.VariableInstance;
 import org.camunda.bpm.engine.task.Task;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import de.gravitex.bpmn.server.dto.DiagramElementDTO;
 import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
@@ -49,6 +54,7 @@ import de.gravitex.bpmn.server.exception.BpmnException;
 import de.gravitex.bpmn.server.exception.BpmnPropertyException;
 import de.gravitex.bpmn.server.singleton.BpmEngine;
 import de.gravitex.bpmn.server.util.DelegateHelper;
+import de.gravitex.bpmn.server.util.ProviderUtil;
 
 public class ProcessEngineProvider extends UnicastRemoteObject implements
 		ProcessEngineProviderRemote
@@ -396,8 +402,49 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 				.signalEventReceived(signalName);
 	}
 
-	public Map<String, DiagramElement> queryDiagramElements(String processDefinitionId) throws RemoteException
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId) throws RemoteException
 	{
-		return BpmEngine.getInstance().getProcessEngine().getRepositoryService().getProcessDiagramLayout(processDefinitionId).getElements();
+		RepositoryService repositoryService = BpmEngine.getInstance().getProcessEngine().getRepositoryService();
+		try
+		{
+			Document document = ProviderUtil.readXml(repositoryService.getProcessModel(processDefinitionId));
+			document.getDocumentElement().normalize();
+			NodeList processNodeList = document.getElementsByTagName("bpmn2:process");
+			Node processDefinitionNode = null;
+			HashMap<String, String> typesByElementId = new HashMap<>();
+			for (int processIndex = 0; processIndex < processNodeList.getLength(); processIndex++)
+			{
+				processDefinitionNode = processNodeList.item(processIndex);
+				//search 'bpmn2:process' node for elemts...
+				NodeList elementNodes = processDefinitionNode.getChildNodes();
+				Node elementNode = null;
+				Element element = null;
+				for (int elementIndex = 0; elementIndex < elementNodes.getLength(); elementIndex++)
+				{
+					elementNode = elementNodes.item(elementIndex);
+					if (elementNode instanceof Element)
+					{
+						element = (Element) elementNode;
+						if (element.getAttribute("id") != null)
+						{
+							System.out.println(element.getAttribute("id") + " :: " + elementNode.getNodeName());
+							typesByElementId.put(element.getAttribute("id"), elementNode.getNodeName());
+						}
+					}
+				}
+			}
+			Map<String, DiagramElement> elements = repositoryService.getProcessDiagramLayout(processDefinitionId).getElements();
+			List<DiagramElementDTO> dtos = new ArrayList<>();
+			for (DiagramElement element : elements.values())
+			{
+				System.out.println("element '"+element.getId()+"' is a '"+typesByElementId.get(element.getId())+"'.");
+				dtos.add(new DiagramElementDTO(element, typesByElementId.get(element.getId())));
+			}
+			return dtos;
+		} catch (SAXException | IOException | ParserConfigurationException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

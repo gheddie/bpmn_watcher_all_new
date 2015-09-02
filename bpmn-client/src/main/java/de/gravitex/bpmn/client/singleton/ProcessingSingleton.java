@@ -20,6 +20,7 @@ import org.camunda.bpm.engine.task.Task;
 
 import de.gravitex.bpmn.server.ProcessEngineProviderRemote;
 import de.gravitex.bpmn.server.RMIConstants;
+import de.gravitex.bpmn.server.dto.DiagramElementDTO;
 import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
@@ -162,7 +163,7 @@ public class ProcessingSingleton
 		processEngineProvider.deployStream(resourceName, processKey, version);
 	}
 
-	public Map<String, DiagramElement> queryDiagramElements(String processDefinitionId) throws RemoteException
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId) throws RemoteException
 	{
 		return processEngineProvider.queryDiagramElements(processDefinitionId);
 	}

@@ -13,6 +13,7 @@ import org.camunda.bpm.engine.repository.ProcessDefinition;
 import org.camunda.bpm.engine.runtime.ProcessInstance;
 import org.camunda.bpm.engine.task.Task;
 
+import de.gravitex.bpmn.server.dto.DiagramElementDTO;
 import de.gravitex.bpmn.server.dto.FormFieldDTO;
 import de.gravitex.bpmn.server.dto.JobExecutionDTO;
 import de.gravitex.bpmn.server.dto.VariableInstanceDTO;
@@ -54,5 +55,5 @@ public interface ProcessEngineProviderRemote extends Remote {
 	
 	public void triggerSignal(String signalName) throws RemoteException;
 
-	public Map<String, DiagramElement> queryDiagramElements(String processDefinition) throws RemoteException;
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinition) throws RemoteException;
 }
