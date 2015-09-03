@@ -38,10 +38,14 @@ import de.gravitex.bpmn.server.dto.DiagramElementDTO;
 @SuppressWarnings("restriction")
 public class FxProcessViewer extends Application
 {
-    public static void main(String[] args)
+	public static void main(String[] args)
     {
         launch(args);
     }
+	
+    private static final int DRAG_TOLERANCE = 75;
+    
+    private static final int KEY_TRANSLATION = 10;
 
     private Group renderingTarget;
 
@@ -54,6 +58,10 @@ public class FxProcessViewer extends Application
     private double maxRenderBoundsY;
 
     private Parent zoomPane;
+    
+    private double oldX;
+
+    private double oldY;
 
     public void start(final Stage stage)
     {
@@ -117,16 +125,16 @@ public class FxProcessViewer extends Application
         switch (e.getCode())
         {
             case UP:
-                retranslateTarget(0, 1, false);
+                retranslateTarget(0, KEY_TRANSLATION, false);
                 break;
             case DOWN:
-                retranslateTarget(0, -1, false);
+                retranslateTarget(0, (-KEY_TRANSLATION), false);
                 break;
             case LEFT:
-                retranslateTarget(1, 0, false);
+                retranslateTarget(KEY_TRANSLATION, 0, false);
                 break;
             case RIGHT:
-                retranslateTarget(-1, 0, false);
+                retranslateTarget((-KEY_TRANSLATION), 0, false);
                 break;
         }
     }
@@ -156,19 +164,26 @@ public class FxProcessViewer extends Application
 
         zoomPane.setOnMouseDragged(new EventHandler<MouseEvent>()
         {
-            private double oldX;
-
-            private double oldY;
-
             public void handle(MouseEvent e)
             {
                 double diffX = e.getX() - oldX;
                 double diffY = e.getY() - oldY;
                 System.out.println("setOnMouseDragged : [diffX:" + diffX + "|diffY:" + diffY + "]");
-                retranslateTarget(diffX, diffY, true);
+                if ((ckechDiff(diffX)) && (ckechDiff(diffY)))
+                {
+                	retranslateTarget(diffX, diffY, true);	
+                }                
                 oldX = e.getX();
                 oldY = e.getY();
             }
+
+			private boolean ckechDiff(double diff) {
+				if ((diff < (-DRAG_TOLERANCE)) || (diff > (DRAG_TOLERANCE)))
+				{
+					return false;
+				}
+				return true;
+			}
         });
 
         zoomPane.setOnKeyPressed(new EventHandler<KeyEvent>()

@@ -405,14 +405,27 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId, String processId) throws RemoteException
 	{
 		RepositoryService repositoryService = BpmEngine.getInstance().getProcessEngine().getRepositoryService();
-		HashMap<String, String> typesByElementId = ProviderUtil.readPocessElements(processDefinitionId, processId, repositoryService);
+		List<HashMap<String, String>> allTypes = ProviderUtil.readPocessElements(processDefinitionId, processId, repositoryService);
 		Map<String, DiagramElement> elements = repositoryService.getProcessDiagramLayout(processDefinitionId).getElements();
 		List<DiagramElementDTO> dtos = new ArrayList<>();
 		for (DiagramElement element : elements.values())
 		{
-			System.out.println("element '"+element.getId()+"' is a '"+typesByElementId.get(element.getId())+"'.");
-			dtos.add(new DiagramElementDTO(element, typesByElementId.get(element.getId())));
+			//System.out.println("element '"+element.getId()+"' is a '"+allTypes.get(element.getId())+"'.");
+			dtos.add(new DiagramElementDTO(element, getType(allTypes, element.getId())));
 		}
 		return dtos;
+	}
+
+	private String getType(List<HashMap<String, String>> allTypes, String elementId)
+	{
+		String type = null;
+		for (HashMap<String, String> map : allTypes)
+		{
+			if (map.get(elementId) != null)
+			{
+				return map.get(elementId);
+			}
+		}
+		return type;
 	}
 }

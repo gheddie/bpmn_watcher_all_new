@@ -38,7 +38,7 @@ public class ProviderUtil
 		return db.parse(is);
 	}
 
-	public static HashMap<String, String> readPocessElements(String processDefinitionId, String processId, RepositoryService repositoryService)
+	public static List<HashMap<String, String>> readPocessElements(String processDefinitionId, String processId, RepositoryService repositoryService)
 	{
 		try
 		{
@@ -50,12 +50,9 @@ public class ProviderUtil
 			List<HashMap<String, String>> result = new ArrayList<HashMap<String,String>>();
 			for (int processIndex = 0; processIndex < processNodeList.getLength(); processIndex++)
 			{
-				processNode = (Element) processNodeList.item(processIndex);
-				if (processNode.getAttribute("id").equals(processId))
-				{
-					return readPocessElementsRecursive(processNode, processDefinitionId, repositoryService, new HashMap<String, String>());	
-				}
+				result.add(readPocessElementsRecursive(((Element) processNodeList.item(processIndex)), processDefinitionId, repositoryService, new HashMap<String, String>()));
 			}
+			return result;
 		} catch (SAXException | IOException | ParserConfigurationException e)
 		{
 			e.printStackTrace();
