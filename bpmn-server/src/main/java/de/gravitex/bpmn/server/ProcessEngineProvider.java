@@ -402,49 +402,17 @@ public class ProcessEngineProvider extends UnicastRemoteObject implements
 				.signalEventReceived(signalName);
 	}
 
-	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId) throws RemoteException
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId, String processId) throws RemoteException
 	{
 		RepositoryService repositoryService = BpmEngine.getInstance().getProcessEngine().getRepositoryService();
-		try
+		HashMap<String, String> typesByElementId = ProviderUtil.readPocessElements(processDefinitionId, processId, repositoryService);
+		Map<String, DiagramElement> elements = repositoryService.getProcessDiagramLayout(processDefinitionId).getElements();
+		List<DiagramElementDTO> dtos = new ArrayList<>();
+		for (DiagramElement element : elements.values())
 		{
-			Document document = ProviderUtil.readXml(repositoryService.getProcessModel(processDefinitionId));
-			document.getDocumentElement().normalize();
-			NodeList processNodeList = document.getElementsByTagName("bpmn2:process");
-			Node processDefinitionNode = null;
-			HashMap<String, String> typesByElementId = new HashMap<>();
-			for (int processIndex = 0; processIndex < processNodeList.getLength(); processIndex++)
-			{
-				processDefinitionNode = processNodeList.item(processIndex);
-				//search 'bpmn2:process' node for elemts...
-				NodeList elementNodes = processDefinitionNode.getChildNodes();
-				Node elementNode = null;
-				Element element = null;
-				for (int elementIndex = 0; elementIndex < elementNodes.getLength(); elementIndex++)
-				{
-					elementNode = elementNodes.item(elementIndex);
-					if (elementNode instanceof Element)
-					{
-						element = (Element) elementNode;
-						if (element.getAttribute("id") != null)
-						{
-							System.out.println(element.getAttribute("id") + " :: " + elementNode.getNodeName());
-							typesByElementId.put(element.getAttribute("id"), elementNode.getNodeName());
-						}
-					}
-				}
-			}
-			Map<String, DiagramElement> elements = repositoryService.getProcessDiagramLayout(processDefinitionId).getElements();
-			List<DiagramElementDTO> dtos = new ArrayList<>();
-			for (DiagramElement element : elements.values())
-			{
-				System.out.println("element '"+element.getId()+"' is a '"+typesByElementId.get(element.getId())+"'.");
-				dtos.add(new DiagramElementDTO(element, typesByElementId.get(element.getId())));
-			}
-			return dtos;
-		} catch (SAXException | IOException | ParserConfigurationException e)
-		{
-			e.printStackTrace();
+			System.out.println("element '"+element.getId()+"' is a '"+typesByElementId.get(element.getId())+"'.");
+			dtos.add(new DiagramElementDTO(element, typesByElementId.get(element.getId())));
 		}
-		return null;
+		return dtos;
 	}
 }

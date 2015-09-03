@@ -163,8 +163,8 @@ public class ProcessingSingleton
 		processEngineProvider.deployStream(resourceName, processKey, version);
 	}
 
-	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId) throws RemoteException
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinitionId, String processId) throws RemoteException
 	{
-		return processEngineProvider.queryDiagramElements(processDefinitionId);
+		return processEngineProvider.queryDiagramElements(processDefinitionId, processId);
 	}
 }

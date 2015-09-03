@@ -89,7 +89,7 @@ public class FxProcessViewer extends Application
 		{
     		DiagramNode diagramNode = null;
     		Rectangle rect = null;
-			for (DiagramElementDTO dto : ProcessingSingleton.getInstance().queryDiagramElements("LibraryRequestUserProcess:1:37"))
+			for (DiagramElementDTO dto : ProcessingSingleton.getInstance().queryDiagramElements("SignalTestReviewProcess:1:5", "SignalTestReviewProcess"))
 			{
 				if (dto.getElement() instanceof DiagramNode)
 				{

@@ -55,5 +55,5 @@ public interface ProcessEngineProviderRemote extends Remote {
 	
 	public void triggerSignal(String signalName) throws RemoteException;
 
-	public List<DiagramElementDTO> queryDiagramElements(String processDefinition) throws RemoteException;
+	public List<DiagramElementDTO> queryDiagramElements(String processDefinition, String processId) throws RemoteException;
 }
